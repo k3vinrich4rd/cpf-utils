@@ -36,6 +36,6 @@ public class ValidaCpf implements CpfValidation {
 
         // 5. Verificação final: compara os dígitos calculados com os do CPF informado
         return primeiroDigitoVerificador == (cpf.charAt(9) - '0') &&
-               segundoDigitoVerificador == (cpf.charAt(10) - '0');
+                segundoDigitoVerificador == (cpf.charAt(10) - '0');
     }
 }
