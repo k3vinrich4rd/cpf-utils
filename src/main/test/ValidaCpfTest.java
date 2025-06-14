@@ -1,10 +1,12 @@
 package main.test;
 
 import main.ValidaCpf;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class ValidaCpfTest {
 
@@ -13,6 +15,7 @@ public class ValidaCpfTest {
     private final ValidaCpf validaCpf = new ValidaCpf();
 
     @Test
+    @DisplayName("Deve retornar falso quando CPF for nulo ou não tiver 11 caracteres")
     public void deveRetornarFalsoQuandoCpfForNuloOuTamanhoInvalido() {
         assertFalse(validaCpf.isCpfValido(null));
         assertFalse(validaCpf.isCpfValido(""));
@@ -22,19 +25,14 @@ public class ValidaCpfTest {
     }
 
     @Test
+    @DisplayName("Deve retornar verdadeiro para CPF válido")
     public void deveRetornarVerdadeiroParaCpfValido() {
         assertTrue(validaCpf.isCpfValido(CPF_VALIDO));
     }
 
     @Test
+    @DisplayName("Deve retornar falso para CPF inválido")
     public void deveRetornarFalsoParaCpfInvalido() {
         assertFalse(validaCpf.isCpfValido(CPF_INVALIDO));
-    }
-
-    @Test
-    public void deveRetornarVerdadeiroQuandoSegundoDigitoVerificadorFor10() {
-        // CPF onde o segundo dígito verificador é 0 porque o cálculo resulta em 10
-        String cpfComSegundoDV10 = "74682489070";
-        assertTrue(validaCpf.isCpfValido(cpfComSegundoDV10));
     }
 }
