@@ -19,31 +19,76 @@ public class CpfValidationImpl implements CpfValidation {
 
     @Override
     public boolean isCpfValido(String cpf) {
-        if (cpf == null || !cpf.matches("\\d{" + TAMANHO_CPF + "}") || CPFS_INVALIDOS.contains(cpf)) {
+
+        if (cpf == null || cpf.length() != TAMANHO_CPF || CPFS_INVALIDOS.contains(cpf)) {
             return false;
         }
 
-        int somaParaPrimeiroVerificador = 0;
-        int segundoDigitoCalculado = 0;
+        int somaPrimeiroDigitoVerificador = 0;
+        int somaSegundoDigitoVerificador = 0;
+        for (int indice = 0; indice < 9; indice++) {
+            int digitoAtual = cpf.charAt(indice) - '0';
 
-        for (int posicao = 0; posicao < 9; posicao++) {
-            int digito = cpf.charAt(posicao) - '0';
-            somaParaPrimeiroVerificador += digito * (PRIMEIRO_PESO - posicao);
-            segundoDigitoCalculado += digito * (SEGUNDO_PESO - posicao);
+            somaPrimeiroDigitoVerificador += digitoAtual * (PRIMEIRO_PESO - indice); // Peso decrescente de 10 a 2
+            somaSegundoDigitoVerificador += digitoAtual * (SEGUNDO_PESO - indice);  // Peso decrescente de 11 a 3
         }
 
-        int primeiroDigitoCalculado = (somaParaPrimeiroVerificador * 10) % 11;
-
-        if (primeiroDigitoCalculado == 10) {
-            primeiroDigitoCalculado = 0;
+        int primeiroDigitoVerificador = (somaPrimeiroDigitoVerificador * 10) % 11;
+        if (primeiroDigitoVerificador == 10) {
+            primeiroDigitoVerificador = 0;
         }
 
-        int segundoDigitoVerificador = (segundoDigitoCalculado * 10) % 11;
+        somaSegundoDigitoVerificador += primeiroDigitoVerificador * 2;
+        int segundoDigitoVerificador = (somaSegundoDigitoVerificador * 10) % 11;
         if (segundoDigitoVerificador == 10) {
             segundoDigitoVerificador = 0;
         }
 
-        return primeiroDigitoCalculado == (cpf.charAt(INDICE_PRIMEIRO_VERIFICADOR) - '0') &&
+        return primeiroDigitoVerificador == (cpf.charAt(INDICE_PRIMEIRO_VERIFICADOR) - '0') &&
                 segundoDigitoVerificador == (cpf.charAt(INDICE_SEGUNDO_VERIFICADOR) - '0');
     }
+
+    @Override
+    public String gerarCpf() {
+        int[] cpf = new int[TAMANHO_CPF];
+
+        for (int i = 0; i < INDICE_PRIMEIRO_VERIFICADOR; i++) {
+            cpf[i] = (int) (Math.random() * 10);
+        }
+
+        int somaPrimeiroDigitoVerificador = 0;
+        for (int i = 0; i < INDICE_PRIMEIRO_VERIFICADOR; i++) {
+            somaPrimeiroDigitoVerificador += cpf[i] * (PRIMEIRO_PESO - i);
+        }
+        int primeiroDigitoVerificador = (somaPrimeiroDigitoVerificador * 10) % 11;
+        if (primeiroDigitoVerificador == 10) {
+            primeiroDigitoVerificador = 0;
+        }
+        cpf[INDICE_PRIMEIRO_VERIFICADOR] = primeiroDigitoVerificador;
+
+        int somaSegundoDigitoVerificador = 0;
+        for (int i = 0; i < INDICE_PRIMEIRO_VERIFICADOR; i++) {
+            somaSegundoDigitoVerificador += cpf[i] * (SEGUNDO_PESO - i);
+        }
+        somaSegundoDigitoVerificador += primeiroDigitoVerificador * 2;
+        int segundoDigitoVerificador = (somaSegundoDigitoVerificador * 10) % 11;
+        if (segundoDigitoVerificador == 10) {
+            segundoDigitoVerificador = 0;
+        }
+        cpf[INDICE_SEGUNDO_VERIFICADOR] = segundoDigitoVerificador;
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < TAMANHO_CPF; i++) {
+            stringBuilder.append(cpf[i]);
+        }
+
+        String cpfStr = stringBuilder.toString();
+        if (CPFS_INVALIDOS.contains(cpfStr)) {
+            return gerarCpf(); // Tenta novamente
+        }
+
+        return cpfStr;
+    }
+
+
 }
