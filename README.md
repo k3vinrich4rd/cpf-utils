@@ -1,7 +1,19 @@
-# Validação de CPF em Java
+# JavaCPFValidator
 
-Este projeto implementa uma validação de CPF (Cadastro de Pessoas Físicas) em Java, seguindo as regras oficiais para cálculo dos dígitos verificadores.
+Implementação robusta para validação e geração de CPFs em Java.
 
-A classe `ValidaCpf` expõe o método `isCpfValido(String cpf)`, que retorna `true` para CPFs válidos e `false` para CPFs nulos, com tamanho incorreto ou inválidos.
+## Descrição
 
-Inclui também testes automatizados com JUnit para garantir o correto funcionamento da validação em diferentes cenários.
+Este projeto contém a interface `CpfValidation` e sua implementação `CpfValidationImpl`, responsáveis por validar e gerar números de CPF (Cadastro de Pessoas Físicas) conforme as regras oficiais brasileiras.
+
+- **
+  Validação:
+  ** O método `isCpfValido(String cpf)` verifica se um CPF é válido, checando o tamanho, a lista de CPFs inválidos e o cálculo dos dígitos verificadores.
+- **
+  Geração:
+  ** O método `gerarCpf()` gera um CPF válido, garantindo que não pertença à lista de CPFs inválidos conhecidos.
+
+## Funcionalidades
+
+- Validação de CPF (tamanho, blacklist, dígitos verificadores)
+- Geração de CPF válido aleatório
