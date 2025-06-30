@@ -1,6 +1,6 @@
 package main;
 
-public interface CpfValidation {
+public interface CpfService {
 
     boolean isCpfValido(String cpf);
     String gerarCpf();

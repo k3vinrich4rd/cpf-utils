@@ -1,6 +1,6 @@
 package main.test;
 
-import main.CpfValidationImpl;
+import main.CpfServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ public class CpfValidationImplTest {
 
     private static final String CPF_VALIDO = "60268510032";
     private static final String CPF_INVALIDO = "44019379023";
-    private final CpfValidationImpl cpfValidationImpl = new CpfValidationImpl();
+    private final CpfServiceImpl cpfValidationImpl = new CpfServiceImpl();
     private static final Set<String> CPFS_INVALIDOS = new HashSet<>(Arrays.asList(
             "00000000000", "11111111111", "22222222222", "33333333333",
             "44444444444", "55555555555", "66666666666",
