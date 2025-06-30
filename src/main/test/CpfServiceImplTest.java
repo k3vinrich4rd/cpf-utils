@@ -10,7 +10,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CpfValidationImplTest {
+public class CpfServiceImplTest {
 
     private static final String CPF_VALIDO = "60268510032";
     private static final String CPF_INVALIDO = "44019379023";
