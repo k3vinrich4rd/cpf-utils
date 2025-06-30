@@ -1,4 +1,4 @@
-# JavaCPFValidator
+# Cpf-Utils
 
 Implementação robusta para validação e geração de CPFs em Java.
 
