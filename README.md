@@ -1,19 +1,29 @@
-# Cpf-Utils
+# 🇧🇷 cpf-utils
 
-Implementação robusta para validação e geração de CPFs em Java.
+Validação e geração de CPF em **Java puro**, com testes em **JUnit 5**.
 
-## Descrição
+## O que faz
+- **Validação** — `isCpfValido(String cpf)`: confere o tamanho, a lista de CPFs inválidos (todos os dígitos iguais, como `11111111111`) e os dois dígitos verificadores.
+- **Geração** — `gerarCpf()`: gera um CPF válido, que nunca cai na lista de inválidos.
 
-Este projeto contém a interface `CpfValidation` e sua implementação `CpfValidationImpl`, responsáveis por validar e gerar números de CPF (Cadastro de Pessoas Físicas) conforme as regras oficiais brasileiras.
+## Estrutura
+| Arquivo | Papel |
+|---|---|
+| `src/main/CpfService.java` | interface (o contrato) |
+| `src/main/CpfServiceImpl.java` | implementação das regras |
+| `src/main/test/CpfServiceImplTest.java` | 7 testes JUnit 5 |
 
-- **
-  Validação:
-  ** O método `isCpfValido(String cpf)` verifica se um CPF é válido, checando o tamanho, a lista de CPFs inválidos e o cálculo dos dígitos verificadores.
-- **
-  Geração:
-  ** O método `gerarCpf()` gera um CPF válido, garantindo que não pertença à lista de CPFs inválidos conhecidos.
+## Testes
+- Deve retornar verdadeiro para CPF válido
+- Deve retornar falso para CPF inválido
+- Deve retornar falso quando CPF for nulo, tamanho inválido ou na lista de inválidos
+- Deve gerar CPF com 11 dígitos
+- Deve gerar CPF contendo apenas números
+- Deve gerar CPF que não está na lista de inválidos
+- Deve gerar CPF válido
 
-## Funcionalidades
+## Como rodar
+Projeto do IntelliJ IDEA (sem Maven/Gradle): abra a pasta, adicione o JUnit 5 ao classpath quando a IDE pedir e rode `CpfServiceImplTest`.
 
-- Validação de CPF (tamanho, blacklist, dígitos verificadores)
-- Geração de CPF válido aleatório
+## Licença
+Apache-2.0
